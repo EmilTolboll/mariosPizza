@@ -16,21 +16,41 @@ public class Interface {
             int menuChoice = scannerInt.nextInt();
             if (menuChoice==1){
                 myMenuCardArr.printMenuCard();
+                System.out.println("####################################################################################################");
             }else if (menuChoice==2){
                 OrderArr = Order.addOrder(OrderArr,getOrderFromUser(myMenuCardArr));
+                System.out.println("####################################################################################################");
             }else if (menuChoice==3){
                 Scanner scannerClose = new Scanner(System.in);  // Create a Scanner object
-                System.out.println("Enter which orderNo to close:");
+                System.out.println("Indtast ordre nummer:");
                 int closeOrderNo = scannerClose.nextInt();
                 OrderClosed = closeOrder(myMenuCardArr,OrderClosed,OrderArr,closeOrderNo);
+                System.out.println("####################################################################################################");
             }else if (menuChoice==4){
                 // Print bestillingsliste
-
+                System.out.println("Bestillingsliste:");
+                if(OrderArr.length>0){
+                    for (Order Order: OrderArr){
+                        System.out.println("#############################################################");
+                        System.out.println(Order.toString());
+                        for (OrderLine OrderLine: Order.getOrderLineArr()){
+                            System.out.println(OrderLine.toString());
+                        }
+                    }
+                }else{
+                    System.out.println("Ingen ordrer tilgængelig!");
+                }
+                System.out.println("####################################################################################################");
             }else if (menuChoice==5){
                 totalRevenue = Order.getTotalSales(OrderClosed);
-                System.out.println("Todays revenue is: "+totalRevenue);
+                System.out.println("Dagens omsætning er: "+totalRevenue+ " (kun lukkede ordre)");
+                System.out.println("####################################################################################################");
             }else if (menuChoice==6){
                 // Mest populære pizza
+                System.out.println("####################################################################################################");
+            }else{
+                System.out.println("Ugyldigt valg - prøv igen!");
+                System.out.println("####################################################################################################");
             }
         }
 
@@ -62,14 +82,14 @@ public class Interface {
     public static Order getOrderFromUser(MenuCard myMenuCardArr){
         OrderLine[] OrderLineArr = new OrderLine[0];
         Scanner scannerInt = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter order (press 0 to finish):");
+        System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
         int itemNo = scannerInt.nextInt();
         if(itemNo>0){
             OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
             OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
         }
         while(itemNo > 0){
-            System.out.println("Enter order (press 0 to finish):");
+            System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
             itemNo = scannerInt.nextInt();
             if(itemNo>0){
                 OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
@@ -82,8 +102,12 @@ public class Interface {
     }
 
     public static Order[] closeOrder(MenuCard myMenuCardArr,Order[] OrderClosed,Order[] OrderArr, int orderNo){
-        OrderArr[orderNo - 1].setIsReady(true);
-        OrderClosed = Order.addOrder(OrderClosed,OrderArr[orderNo - 1]);
+        if(OrderArr[orderNo - 1].getIsReady()==false){ // Only if the order is not ready
+            OrderArr[orderNo - 1].setIsReady(true);
+            OrderClosed = Order.addOrder(OrderClosed,OrderArr[orderNo - 1]);
+        }else{
+            System.out.println("Ordre er allerede lukket!");
+        }
         return OrderClosed;
     }
 

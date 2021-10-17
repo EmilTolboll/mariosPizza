@@ -84,21 +84,21 @@ public class Order {
         return totalSales;
     }
 
-    public static int[] getListOfChoices(Order[] OrderArr){
-        int[] choices = new int[0];
-        int[] tmpChoices1 = new int[0];
-        int[] tmpChoices2 = new int[0];
-        int len1 = tmpChoices1.length;
-        int len2 = tmpChoices2.length;
-
-        for (Order Order: OrderArr){
-            tmpChoices2 = Order.getListOfItems();
-            len2 = tmpChoices2.length;
-            choices = new int[len1 + len2];
-            System.arraycopy(tmpChoices1, 0, choices, 0, len1);
-            System.arraycopy(tmpChoices2, 0, choices, len1, len2);
-        }
-        return choices;
-    }
+//    public static int[] getListOfChoices(Order[] OrderArr){
+//        int[] choices = new int[0];
+//        int[] tmpChoices1 = new int[0];
+//        int[] tmpChoices2 = new int[0];
+//        int len1 = tmpChoices1.length;
+//        int len2 = tmpChoices2.length;
+//
+//        for (Order Order: OrderArr){
+//            tmpChoices2 = Order.getListOfItems();
+//            len2 = tmpChoices2.length;
+//            choices = new int[len1 + len2];
+//            System.arraycopy(tmpChoices1, 0, choices, 0, len1);
+//            System.arraycopy(tmpChoices2, 0, choices, len1, len2);
+//        }
+//        return choices;
+//    }
 
 }
