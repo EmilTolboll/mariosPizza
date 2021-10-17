@@ -1,8 +1,9 @@
+import java.util.Arrays;
+
 public class OrderLine {
-    private int maxOrderLines = 1000;
-    private int itemPrice;
-    private int itemNo;
     private int orderNo;
+    private int itemNo;
+    private int itemPrice;
 
     public OrderLine(int itemNo, int orderNo, MenuCard MenuCard){
         this.itemPrice = MenuCard.getPizzaPrice(itemNo);
@@ -22,4 +23,16 @@ public class OrderLine {
         return this.orderNo;
     }
 
+    public static OrderLine[] addOrderLine(OrderLine[] OrderLineArr, OrderLine NewOrderLine){
+        OrderLineArr = Arrays.copyOf(OrderLineArr, OrderLineArr.length +1);
+        OrderLineArr[OrderLineArr.length - 1] = NewOrderLine;
+        return OrderLineArr;
+    }
+
+    @Override
+    public String toString() {
+        return "- orderNo=" + orderNo +
+                ", itemNo=" + itemNo +
+                ", itemPrice=" + itemPrice;
+    }
 }
