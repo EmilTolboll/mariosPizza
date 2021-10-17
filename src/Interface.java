@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
-// Interface made by Emil and Osman
+// Interface made by Osman
 public class Interface {
     private static int orderNoNow = 1;
     private static int orderNoPhone = 100;

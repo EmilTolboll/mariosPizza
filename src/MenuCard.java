@@ -10,10 +10,6 @@ public class MenuCard<PizzaMenuCardArrList> {
 
     private static int lengthOfMenuLines = 100;
 
-    private List<Pizza> books = new ArrayList<Pizza>();
-    //public static void addPizzaToMenuCard(int PizzaNumber,String PizzaName,String PizzaDescription,int PizzaPrice ){
-    //   PizzaMenuCard = new Pizza(PizzaNumber,PizzaName,PizzaDescription,PizzaPrice);
-    //}
 
     public MenuCard(Pizza Pizza){
         this.PizzaMenuCard = Pizza;
@@ -28,7 +24,17 @@ public class MenuCard<PizzaMenuCardArrList> {
         Pizza Amerikaner = new Pizza(2,"Amerikaner","tomatsauce,ost,oksefars og oregano",53,true);
         Pizza Cacciatore = new Pizza(3,"Cacciatore","tomatsauce,ost,pepperoni og oregano",57);
         Pizza Carbona = new Pizza(4,"Carbona","tomatsauce,ost,kødsauce,spaghetti,cocktailpølser og oregano",63);
-        Pizza Dennis = new Pizza(9,"Dennis","tomatsauce,ost,skinke,pepperoni,cocktailpølser og oregano",65);
+        Pizza Dennis = new Pizza(5,"Dennis","tomatsauce,ost,skinke,pepperoni,cocktailpølser og oregano",65);
+        Pizza Bertil = new Pizza(6,"Bertil","tomatsauce,ost,bacon og oregano",57);
+        Pizza Silvia = new Pizza(7,"Silvia","tomatsauce,ost,pepperoni,rød peber,løg,oliven og oregano",61);
+        Pizza Victoria = new Pizza(8,"Victoria","tomatsauce,ost,skinke,ananas,champignon,løg og oregano",61);
+        Pizza Toronfo = new Pizza(9,"Toronfo","tomatsauce,ost,skinke,bacon,kebab,chili og oregano",61,true);
+        /*Pizza Capricciosa = new Pizza(10,"Capricciosa","tomatsauce,ost,skinke,champignon og oregano",61);
+        Pizza Hawaii = new Pizza(11,"Hawaii","tomatsauce,ost,skinke,ananas og oregano",61);
+        Pizza Blissola = new Pizza(12,"Blissola","tomatsauce,ost,skinke,rejer og oregano",61);
+        Pizza Venezia = new Pizza(13,"Venezia","tomatsauce,ost,skinke,bacon og oregano",61);
+        Pizza Mafia = new Pizza(14,"Mafia","tomatsauce,ost,pepperoni,bacon,løg og oregano",61,true);
+*/
 
         this.PizzaMenuCardArr = new Pizza[] {Vesuvio,Amerikaner,Cacciatore,Carbona,Dennis};
         this.PizzaMenuCardArrList.add(Vesuvio);
@@ -36,6 +42,10 @@ public class MenuCard<PizzaMenuCardArrList> {
         this.PizzaMenuCardArrList.add(Cacciatore);
         this.PizzaMenuCardArrList.add(Carbona);
         this.PizzaMenuCardArrList.add(Dennis);
+        this.PizzaMenuCardArrList.add(Bertil);
+        this.PizzaMenuCardArrList.add(Silvia);
+        this.PizzaMenuCardArrList.add(Victoria);
+        this.PizzaMenuCardArrList.add(Toronfo);
     }
 
     public static void printMenuLine(Pizza PizzaObj){
