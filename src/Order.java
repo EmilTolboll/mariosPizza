@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Date;
-
-public class Order{
+// Class made by Osman
+public class Order implements Comparable<Order>{
     private int orderNo;
     private int totalPrice;
     private String deliveryTime;
@@ -84,4 +84,17 @@ public class Order{
         }
         return totalSales;
     }
+
+    public int compareTo(Order OrderArr) {
+
+        int compareOrderNo = OrderArr.getOrderNo();
+
+        //ascending order
+        return this.orderNo - compareOrderNo;
+
+        //descending order
+        //return compareQuantity - this.quantity;
+
+    }
+
 }

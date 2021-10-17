@@ -1,3 +1,4 @@
+// Class made by Emil
 public class Pizza {
     private int number;
     private String name;

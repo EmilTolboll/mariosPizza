@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+// Class made by Emil
 public class MenuCard<PizzaMenuCardArrList> {
     public static int getPizza;
     private  Pizza PizzaMenuCard;

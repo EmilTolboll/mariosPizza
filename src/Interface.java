@@ -1,13 +1,16 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
-
+// Interface made by Emil and Osman
 public class Interface {
     private static Pizza myFirstPizza;
     private static Pizza mySecondPizza;
-    private static int orderNoNew = 1;
+    private static int orderNoNow = 1;
+    private static int orderNoPhone = 100;
     private static int totalRevenue = 0;
 
     public static void main(String[] args) {
@@ -35,9 +38,11 @@ public class Interface {
                 System.out.println("####################################################################################################");
             }else if (menuChoice==5){
                 // Print bestillingsliste
+                Collections.sort(Arrays.asList(OrderArr)); // Sort based on OrderNo
                 System.out.println("Bestillingsliste:");
                 if(OrderArr.length>0){
                     for (Order Order: OrderArr){
+                        LocalDate.now().atTime(LocalTime.parse(Order.getDeliveryTime()));
                         if (Order.getIsReady()==false){ // If order is closed, then remove from list
                             System.out.println("#############################################################");
                             System.out.println(Order.toString());
@@ -89,8 +94,6 @@ public class Interface {
                 System.out.println("####################################################################################################");
             }
         }
-
-
     }
 
     public static Order getOrderFromUserNow(MenuCard myMenuCardArr){
@@ -104,19 +107,19 @@ public class Interface {
         System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
         int itemNo = scannerInt.nextInt();
         if(itemNo>0){
-            OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
+            OrderLine OrderLine = new OrderLine(itemNo,orderNoNow,myMenuCardArr);
             OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
         }
         while(itemNo > 0){
             System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
             itemNo = scannerInt.nextInt();
             if(itemNo>0){
-                OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
+                OrderLine OrderLine = new OrderLine(itemNo,orderNoNow,myMenuCardArr);
                 OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
             }
         }
-        Order SingleOrder= new Order(OrderLineArr,orderNoNew,deliveryTime,false);
-        orderNoNew += 1;
+        Order SingleOrder= new Order(OrderLineArr,orderNoNow,deliveryTime,false);
+        orderNoNow += 1;
         return SingleOrder;
     }
 
@@ -131,19 +134,19 @@ public class Interface {
         System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
         int itemNo = scannerInt.nextInt();
         if(itemNo>0){
-            OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
+            OrderLine OrderLine = new OrderLine(itemNo,orderNoPhone,myMenuCardArr);
             OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
         }
         while(itemNo > 0){
             System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
             itemNo = scannerInt.nextInt();
             if(itemNo>0){
-                OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
+                OrderLine OrderLine = new OrderLine(itemNo,orderNoPhone,myMenuCardArr);
                 OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
             }
         }
-        Order SingleOrder= new Order(OrderLineArr,orderNoNew,deliveryTime,false);
-        orderNoNew += 1;
+        Order SingleOrder= new Order(OrderLineArr,orderNoPhone,deliveryTime,false);
+        orderNoPhone += 1;
         return SingleOrder;
     }
 
@@ -153,20 +156,6 @@ public class Interface {
         if(OrderArr[index].getIsReady()==false){ // Only if the order is not ready
             OrderArr[index].setIsReady(true);
             OrderClosed = Order.addOrder(OrderClosed,OrderArr[index]);
-//
-//
-//            // Create a proxy array of size one less than original array
-//            Order[] proxyArray = new Order[OrderArr.length - 1];
-//
-//            // copy all the elements in the original to proxy array except the one at index
-//            for (int i = 0, k = 0; i < OrderArr.length; i++) {
-//                // check if index is crossed, continue without copying
-//                if (i == index) {
-//                    continue;
-//                }
-//                // else copy the element
-//                proxyArray[k++] = OrderArr[i];
-//            }
         }else{
             System.out.println("Ordre er allerede lukket!");
         }
