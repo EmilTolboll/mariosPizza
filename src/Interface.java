@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -52,6 +53,20 @@ public class Interface {
                 System.out.println("####################################################################################################");
             }else if (menuChoice==6){
                 // Mest populære pizza
+                int[] listOfItemNo = new int[0];
+                int length = listOfItemNo.length;
+                for (int i=0; i<OrderArr.length; i++){
+                    OrderLine[] tempOrderLineArr = OrderArr[i].getOrderLineArr();
+                    for (int j=0; j<tempOrderLineArr.length; j++){
+                        OrderLine tempOrderLine = tempOrderLineArr[j];
+                        listOfItemNo = Arrays.copyOf(listOfItemNo, listOfItemNo.length+1);
+                        length = listOfItemNo.length;
+                        listOfItemNo[length - 1] = tempOrderLine.getItemNo();
+                    }
+                }
+                int popularPizza = mostRepeatingNumber(listOfItemNo);
+                System.out.println("Den mest solgte pizza er: "+myMenuCardArr.getPizzaName(popularPizza));
+
                 System.out.println("####################################################################################################");
             }else{
                 System.out.println("Ugyldigt valg - prøv igen!");
@@ -59,29 +74,7 @@ public class Interface {
             }
         }
 
-        // Testing orders
-//
-//        OrderArr = Order.addOrder(OrderArr,getOrderFromUser(myMenuCardArr));
-//        OrderArr = Order.addOrder(OrderArr,getOrderFromUser(myMenuCardArr));
-//        OrderArr = Order.addOrder(OrderArr,getOrderFromUser(myMenuCardArr));
-//        System.out.println(OrderArr[0].toString());
-//        System.out.println(OrderArr[1].toString());
-//        System.out.println(OrderArr[2].toString());
-//        Scanner scannerInt = new Scanner(System.in);  // Create a Scanner object
-//        System.out.println("Enter which orderNo to close:");
-//        int closeOrderNo = scannerInt.nextInt();
-//        OrderClosed = closeOrder(myMenuCardArr,OrderClosed,OrderArr,closeOrderNo);
-//        int totalPrice = Order.getTotalSales(OrderClosed);
-////        int[] listOfItems = OrderArr[0].getListOfItems();
-////        for (int items: listOfItems){
-////            System.out.println(items);
-////        }
-//
-//        int[] choices = Order.getListOfChoices(OrderArr);
-//        for (int choice: choices){
-//            System.out.println(choice);
-//        }
-//        System.out.println("Length of choices = "+choices.length);
+
     }
 
     public static Order getOrderFromUser(MenuCard myMenuCardArr){
@@ -141,11 +134,28 @@ public class Interface {
         System.out.println("Hovedmenu:");
         System.out.println("1: Se Menukort");
         System.out.println("2: Tilføj ordre telefon ordre:");
-        System.out.println("3: Tilføj ordre ():");
         System.out.println("3: Luk ordre");
         System.out.println("4: Se bestillingsliste");
         System.out.println("5: Se omsætning");
         System.out.println("6: Se mest populære pizza");
+    }
+
+    public static int mostRepeatingNumber(int [] arrA){
+        int maxCounter = 0;
+        int element=0;
+        for (int i = 0; i <arrA.length ; i++) {
+            int counter =1;
+            for (int j = i+1; j <arrA.length ; j++) {
+                if(arrA[i]==arrA[j]){
+                    counter++;
+                }
+            }
+            if(maxCounter<counter){
+                maxCounter=counter;
+                element = arrA[i];
+            }
+        }
+        return element;
     }
 
 }

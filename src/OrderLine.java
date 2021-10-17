@@ -11,6 +11,12 @@ public class OrderLine {
         this.orderNo = orderNo;
     }
 
+    public OrderLine(int itemNo, MenuCard MenuCard){
+        this.itemPrice = MenuCard.getPizzaPrice(itemNo);
+        this.itemNo = itemNo;
+        this.orderNo = orderNo;
+    }
+
     public int getItemPrice(){
         return this.itemPrice;
     }

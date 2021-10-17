@@ -52,33 +52,9 @@ public class MenuCard<PizzaMenuCardArrList> {
             System.out.println(PizzaObj.getPizzaNumber()+ ".   " + PizzaObj.getPizzaName() + ": " + PizzaObj.getPizzaDescription() + periodString + PizzaObj.getPizzaPrice() + ",-");
         }
     }
-/*
-    public void printMenuCard(){
-        System.out.println("                        PIZZAER                           ");
-        String tmpString = PizzaMenuCard.getPizzaNumber()+ ".   " + PizzaMenuCard.getPizzaName() + ": " + PizzaMenuCard.getPizzaDescription() + PizzaMenuCard.getPizzaPrice() + ",-";
-        String tmpPeriodString = ".";
-        String periodString = tmpPeriodString.repeat(lengthOfMenuLines-tmpString.length());
-        System.out.println(PizzaMenuCard.getPizzaNumber()+ ".   " + PizzaMenuCard.getPizzaName() + ": " + PizzaMenuCard.getPizzaDescription() + periodString + PizzaMenuCard.getPizzaPrice() + ",-");
-    }
-
-
-    public void printMenuCardArr(){
-        System.out.println("                                          PIZZAER                                          ");
-        for (int i = 0; i < PizzaMenuCardArr.length; i++){
-            printMenuLine(PizzaMenuCardArr[i]);
-        }
-    }
-    */
-
-
-    private void sortMenuCard(){
-        //PizzaMenuCardArrList.sort(PizzaMenuCardArrList.);
-        //PizzaMenuCardArrList = sort(PizzaMenuCardArrList, on(Pizza.class).getPizzaNumber());
-    }
 
     public void printMenuCard(){
         System.out.println("                                          PIZZAER                                          ");
-        sortMenuCard();
         for (int i = 0; i < PizzaMenuCardArrList.size(); i++){
             printMenuLine(PizzaMenuCardArrList.get(i));
         }
@@ -104,6 +80,16 @@ public class MenuCard<PizzaMenuCardArrList> {
             }
         }
         return pizzaPrice;
+    }
+
+    public String getPizzaName(int pizzaNumber){
+        String pizzaName = "";
+        for (int i = 0;i<PizzaMenuCardArrList.size();i++){
+            if (pizzaNumber== PizzaMenuCardArrList.get(i).getPizzaNumber()){
+                pizzaName = PizzaMenuCardArrList.get(i).getPizzaName();
+            }
+        }
+        return pizzaName;
     }
 
 }
