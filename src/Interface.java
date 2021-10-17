@@ -22,15 +22,18 @@ public class Interface {
                 myMenuCardArr.printMenuCard();
                 System.out.println("####################################################################################################");
             }else if (menuChoice==2){
-                OrderArr = Order.addOrder(OrderArr,getOrderFromUser(myMenuCardArr));
+                OrderArr = Order.addOrder(OrderArr,getOrderFromUserTelephone(myMenuCardArr));
                 System.out.println("####################################################################################################");
             }else if (menuChoice==3){
+                OrderArr = Order.addOrder(OrderArr,getOrderFromUserNow(myMenuCardArr));
+                System.out.println("####################################################################################################");
+            }else if (menuChoice==4){
                 Scanner scannerClose = new Scanner(System.in);  // Create a Scanner object
                 System.out.println("Indtast ordre nummer:");
                 int closeOrderNo = scannerClose.nextInt();
                 OrderClosed = closeOrder(myMenuCardArr,OrderClosed,OrderArr,closeOrderNo);
                 System.out.println("####################################################################################################");
-            }else if (menuChoice==4){
+            }else if (menuChoice==5){
                 // Print bestillingsliste
                 System.out.println("Bestillingsliste:");
                 if(OrderArr.length>0){
@@ -47,11 +50,11 @@ public class Interface {
                     System.out.println("Ingen ordrer tilgængelig!");
                 }
                 System.out.println("####################################################################################################");
-            }else if (menuChoice==5){
+            }else if (menuChoice==6){
                 totalRevenue = Order.getTotalSales(OrderClosed);
                 System.out.println("Dagens omsætning er: "+totalRevenue+ " (kun lukkede ordre)");
                 System.out.println("####################################################################################################");
-            }else if (menuChoice==6){
+            }else if (menuChoice==7){
                 // Mest populære pizza
                 int[] listOfItemNo = new int[0];
                 int length = listOfItemNo.length;
@@ -68,6 +71,19 @@ public class Interface {
                 System.out.println("Den mest solgte pizza er: "+myMenuCardArr.getPizzaName(popularPizza));
 
                 System.out.println("####################################################################################################");
+            }else if (menuChoice==8){
+                Scanner scannerPizzaInt = new Scanner(System.in);  // Create a Scanner object
+                Scanner scannerPizzaString = new Scanner(System.in);  // Create a Scanner object
+                System.out.println("Indtast det nummer pizzaen skal have på menuen:");
+                int pizzaNumber = scannerPizzaInt.nextInt();
+                System.out.println("Indtast navnet på pizzaen:");
+                String pizzaName = scannerPizzaString.nextLine();
+                System.out.println("Indtast beskrivelsen af pizza:");
+                String pizzaDescription = scannerPizzaString.nextLine();
+                System.out.println("Indtast prisen på pizzaen:");
+                int pizzaPrice = scannerPizzaInt.nextInt();
+                Pizza userInputPizza = new Pizza(pizzaNumber,pizzaName,pizzaDescription,pizzaPrice,true);
+                myMenuCardArr.addPizzaToMenuCard(userInputPizza);
             }else{
                 System.out.println("Ugyldigt valg - prøv igen!");
                 System.out.println("####################################################################################################");
@@ -77,9 +93,36 @@ public class Interface {
 
     }
 
-    public static Order getOrderFromUser(MenuCard myMenuCardArr){
+    public static Order getOrderFromUserNow(MenuCard myMenuCardArr){
 
         LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm");
+        String deliveryTime = myDateObj.format(myFormatObj);
+
+        OrderLine[] OrderLineArr = new OrderLine[0];
+        Scanner scannerInt = new Scanner(System.in);  // Create a Scanner object
+        System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
+        int itemNo = scannerInt.nextInt();
+        if(itemNo>0){
+            OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
+            OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
+        }
+        while(itemNo > 0){
+            System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
+            itemNo = scannerInt.nextInt();
+            if(itemNo>0){
+                OrderLine OrderLine = new OrderLine(itemNo,orderNoNew,myMenuCardArr);
+                OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
+            }
+        }
+        Order SingleOrder= new Order(OrderLineArr,orderNoNew,deliveryTime,false);
+        orderNoNew += 1;
+        return SingleOrder;
+    }
+
+    public static Order getOrderFromUserTelephone(MenuCard myMenuCardArr){
+
+        LocalDateTime myDateObj = LocalDateTime.now().plusHours(1);
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm");
         String deliveryTime = myDateObj.format(myFormatObj);
 
@@ -133,11 +176,13 @@ public class Interface {
     public static void printInterface(){
         System.out.println("Hovedmenu:");
         System.out.println("1: Se Menukort");
-        System.out.println("2: Tilføj ordre telefon ordre:");
-        System.out.println("3: Luk ordre");
-        System.out.println("4: Se bestillingsliste");
-        System.out.println("5: Se omsætning");
-        System.out.println("6: Se mest populære pizza");
+        System.out.println("2: Tilføj telefon ordre:");
+        System.out.println("3: Tilføj direkte ordre:");
+        System.out.println("4: Luk ordre");
+        System.out.println("5: Se bestillingsliste");
+        System.out.println("6: Se omsætning");
+        System.out.println("7: Se mest populære pizza");
+        System.out.println("8: Tilføj ny pizza til menu:");
     }
 
     public static int mostRepeatingNumber(int [] arrA){

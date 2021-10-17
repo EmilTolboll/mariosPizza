@@ -43,9 +43,9 @@ public class MenuCard<PizzaMenuCardArrList> {
         String tmpPeriodString = ".";
         String periodString = "";
         if(PizzaObj.isNyhed()) {
-            tmpString = PizzaObj.getPizzaNumber() + ".   " + PizzaObj.getPizzaName() + ": (Nyhed)" + PizzaObj.getPizzaDescription() + PizzaObj.getPizzaPrice() + ",-";
+            tmpString = PizzaObj.getPizzaNumber() + ".   " + PizzaObj.getPizzaName() + ":(Nyhed) " + PizzaObj.getPizzaDescription() + PizzaObj.getPizzaPrice() + ",-";
             periodString = tmpPeriodString.repeat(lengthOfMenuLines-tmpString.length());
-            System.out.println(PizzaObj.getPizzaNumber()+ ".   " + PizzaObj.getPizzaName() + ": (Nyhed)" + PizzaObj.getPizzaDescription()  + periodString + PizzaObj.getPizzaPrice() + ",-");
+            System.out.println(PizzaObj.getPizzaNumber()+ ".   " + PizzaObj.getPizzaName() + ":(Nyhed) " + PizzaObj.getPizzaDescription()  + periodString + PizzaObj.getPizzaPrice() + ",-");
         }else {
             tmpString = PizzaObj.getPizzaNumber() + ".   " + PizzaObj.getPizzaName() + ": " + PizzaObj.getPizzaDescription() + PizzaObj.getPizzaPrice() + ",-";
             periodString = tmpPeriodString.repeat(lengthOfMenuLines-tmpString.length());
