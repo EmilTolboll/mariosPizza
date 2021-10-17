@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.Scanner;
 // Interface made by Emil and Osman
 public class Interface {
-    private static Pizza myFirstPizza;
-    private static Pizza mySecondPizza;
     private static int orderNoNow = 1;
     private static int orderNoPhone = 100;
     private static int totalRevenue = 0;
