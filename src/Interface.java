@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Interface {
@@ -31,10 +34,12 @@ public class Interface {
                 System.out.println("Bestillingsliste:");
                 if(OrderArr.length>0){
                     for (Order Order: OrderArr){
-                        System.out.println("#############################################################");
-                        System.out.println(Order.toString());
-                        for (OrderLine OrderLine: Order.getOrderLineArr()){
-                            System.out.println(OrderLine.toString());
+                        if (Order.getIsReady()==false){ // If order is closed, then remove from list
+                            System.out.println("#############################################################");
+                            System.out.println(Order.toString());
+                            for (OrderLine OrderLine: Order.getOrderLineArr()){
+                                System.out.println(OrderLine.toString());
+                            }
                         }
                     }
                 }else{
@@ -80,6 +85,11 @@ public class Interface {
     }
 
     public static Order getOrderFromUser(MenuCard myMenuCardArr){
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm");
+        String deliveryTime = myDateObj.format(myFormatObj);
+
         OrderLine[] OrderLineArr = new OrderLine[0];
         Scanner scannerInt = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Indtast pizza nummer (tast 0 for at afslutte):");
@@ -96,15 +106,31 @@ public class Interface {
                 OrderLineArr = OrderLine.addOrderLine(OrderLineArr, OrderLine);
             }
         }
-        Order SingleOrder= new Order(OrderLineArr,orderNoNew,"15:00",false);
+        Order SingleOrder= new Order(OrderLineArr,orderNoNew,deliveryTime,false);
         orderNoNew += 1;
         return SingleOrder;
     }
 
     public static Order[] closeOrder(MenuCard myMenuCardArr,Order[] OrderClosed,Order[] OrderArr, int orderNo){
-        if(OrderArr[orderNo - 1].getIsReady()==false){ // Only if the order is not ready
-            OrderArr[orderNo - 1].setIsReady(true);
-            OrderClosed = Order.addOrder(OrderClosed,OrderArr[orderNo - 1]);
+        int index = orderNo-1;
+
+        if(OrderArr[index].getIsReady()==false){ // Only if the order is not ready
+            OrderArr[index].setIsReady(true);
+            OrderClosed = Order.addOrder(OrderClosed,OrderArr[index]);
+//
+//
+//            // Create a proxy array of size one less than original array
+//            Order[] proxyArray = new Order[OrderArr.length - 1];
+//
+//            // copy all the elements in the original to proxy array except the one at index
+//            for (int i = 0, k = 0; i < OrderArr.length; i++) {
+//                // check if index is crossed, continue without copying
+//                if (i == index) {
+//                    continue;
+//                }
+//                // else copy the element
+//                proxyArray[k++] = OrderArr[i];
+//            }
         }else{
             System.out.println("Ordre er allerede lukket!");
         }
@@ -114,7 +140,8 @@ public class Interface {
     public static void printInterface(){
         System.out.println("Hovedmenu:");
         System.out.println("1: Se Menukort");
-        System.out.println("2: Tilføj ordre:");
+        System.out.println("2: Tilføj ordre telefon ordre:");
+        System.out.println("3: Tilføj ordre ():");
         System.out.println("3: Luk ordre");
         System.out.println("4: Se bestillingsliste");
         System.out.println("5: Se omsætning");
