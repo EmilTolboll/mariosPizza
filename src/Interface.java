@@ -8,9 +8,6 @@ public class Interface {
 
         MenuCard myMenuCardArr = new MenuCard();
 
-
-
-
         myMenuCardArr.printMenuCard();
 
         myMenuCardArr.addPizzaToMenuCard(addPizzaObj);
@@ -23,5 +20,14 @@ public class Interface {
         myMenuCardArr.printMenuCard();
 
         System.out.println(myMenuCardArr.getPizzaPrice(4));
+
+        // Testing orders
+        OrderLine OrderLine1 = new OrderLine(1,1,myMenuCardArr);
+        OrderLine OrderLine2 = new OrderLine(2,1,myMenuCardArr);
+        OrderLine[] OrderLineArr1 = new OrderLine[] {OrderLine1,OrderLine2};
+
+        Order Order1 = new Order(OrderLineArr1,1,"15:00");
+        System.out.println("Price of order 1 is = "+Order1.getTotalPrice());
+
     }
 }

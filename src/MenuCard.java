@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuCard<PizzaMenuCardArrList> {
+    public static int getPizza;
     private  Pizza PizzaMenuCard;
     private  Pizza[] PizzaMenuCardArr;
     public   List<Pizza> PizzaMenuCardArrList = new ArrayList <Pizza>();
